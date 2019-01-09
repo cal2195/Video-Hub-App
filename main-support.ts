@@ -243,16 +243,17 @@ export function generateScreenshotStrip(
   }
   args.push('-frames', 1,
     '-filter_complex', allFramesFiltered + outputFrames + 'hstack=inputs=' + totalCount,
+    '-xerror',
     saveLocation + '/filmstrips/' + fileHash + '.jpg'
   );
 
   const ffmpeg_process = spawn(ffmpegPath, args);
-  // ffmpeg_process.stdout.on('data', function (data) {
-  //   console.log(data);
-  // });
-  // ffmpeg_process.stderr.on('data', function (data) {
-  //   console.log('grep stderr: ' + data);
-  // });
+  ffmpeg_process.stdout.on('data', function (data) {
+    console.log(data);
+  });
+  ffmpeg_process.stderr.on('data', function (data) {
+    console.log('grep stderr: ' + data);
+  });
   ffmpeg_process.on('exit', () => {
     takeTenClips(pathToVideo,
                  fileHash,
@@ -303,17 +304,17 @@ export function takeTenClips(
     current++;
   }
   concat += 'concat=n=' + (totalCount - 1) + ':v=1:a=1[v][a];[v]scale=-2:' + screenshotHeight + '[v2]';
-  args.push('-filter_complex', concat, '-map', '[v2]', '-map', '[a]', saveLocation + '/clips/' + fileHash + '.mp4');
+  args.push('-filter_complex', concat, '-map', '[v2]', '-map', '[a]', '-xerror', saveLocation + '/clips/' + fileHash + '.mp4');
   // phfff glad that's over
 
   // now make it all worth it!
   const ffmpeg_process = spawn(ffmpegPath, args);
-  // ffmpeg_process.stdout.on('data', function (data) {
-  //   console.log(data);
-  // });
-  // ffmpeg_process.stderr.on('data', function (data) {
-  //   console.log('grep stderr: ' + data);
-  // });
+  ffmpeg_process.stdout.on('data', function (data) {
+    console.log(data);
+  });
+  ffmpeg_process.stderr.on('data', function (data) {
+    console.log('grep stderr: ' + data);
+  });
   ffmpeg_process.on('exit', () => {
     extractFirstFrame(saveLocation, fileHash, done);
   });
@@ -336,16 +337,17 @@ export function extractFirstFrame(saveLocation: string, fileHash: string, done: 
   '-i', saveLocation + '/clips/' + fileHash + '.mp4',
   '-frames', 1,
   '-f', 'image2',
+  '-xerror',
   saveLocation + '/thumbnails/' + fileHash + '.jpg',
   ];
   // console.log('extracting clip frame 1');
   const ffmpeg_process = spawn(ffmpegPath, args);
-  // ffmpeg_process.stdout.on('data', function (data) {
-  //   console.log(data);
-  // });
-  // ffmpeg_process.stderr.on('data', function (data) {
-  //   console.log('grep stderr: ' + data);
-  // });
+  ffmpeg_process.stdout.on('data', function (data) {
+    console.log(data);
+  });
+  ffmpeg_process.stderr.on('data', function (data) {
+    console.log('grep stderr: ' + data);
+  });
   ffmpeg_process.on('exit', () => {
     done();
   });
