@@ -19,6 +19,17 @@ export interface StarEmission {
   stars: StarRating;
 }
 
+export interface TagEmission {
+  index: number;
+  tag: string;
+  type: 'add' | 'remove';
+}
+
+export interface StarEmission {
+  index: number;
+  stars: StarRating;
+}
+
 @Component({
   selector: 'app-thumbnail-sheet',
   templateUrl: './sheet.component.html',
@@ -101,6 +112,10 @@ export class SheetComponent implements OnInit {
         type: 'add'
       });
     }
+  }
+
+  filterThisTag(event: object) {
+    this.filterTag.emit(event);
   }
 
   removeThisTag(tag: string) {
