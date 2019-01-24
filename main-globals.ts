@@ -18,7 +18,9 @@ export const globals: Globals = {
   },
 };
 
-interface Globals {
+export interface Globals {
+  version: string;
+  vhaFileVersion: number;
   angularApp: any;
   cancelCurrentImport: boolean;
   currentlyOpenVhaFile: string;

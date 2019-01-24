@@ -100,6 +100,10 @@ export class SheetComponent implements OnInit {
     }
   }
 
+  openVideo(index: number) {
+    this.openFileRequest.emit({index: this.video.index, seek: ((this.video.duration / (this.video.screens + 1)) * (index + 1))});
+  }
+
   addThisTag(tag: string) {
     if (this.video.tags && this.video.tags.includes(tag)) {
       console.log('TAG ALREADY ADDED!');
