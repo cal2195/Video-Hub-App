@@ -15,6 +15,7 @@ import { AutoTagsSaveService } from './components/home/tags/tags-save.service';
 import { AutoTagsService } from './components/home/tags/autotags.service';
 import { ElectronService } from './providers/electron.service';
 import { HomeComponent } from './components/home/home.component';
+import { VideoPlayerComponent } from './components/home/videoplayer/videoplayer.component';
 import { ManualTagsService } from './components/home/manual-tags/manual-tags.service';
 import { ResolutionFilterService } from './components/pipes/resolution-filter.service';
 import { ShowLimitService } from './components/pipes/show-limit.service';
@@ -78,6 +79,7 @@ import { WrapperPipe } from './components/pipes/wrapper.pipe';
     FolderViewPipe,
     FullViewComponent,
     HomeComponent,
+    VideoPlayerComponent,
     IconComponent,
     LengthFilterPipe,
     LengthPipe,

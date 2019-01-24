@@ -13,10 +13,9 @@ const demo = false;
 globals.version = '1.9.8';
 // ========================================================================================
 
-
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
-let win, serve;
+let win, winVideo, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
 globals.debug = args.some(val => val === '--debug');
@@ -117,6 +116,58 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     win = null;
+  });
+
+  // Does not seem to be needed to remove all the Mac taskbar menu items
+  // win.setMenu(null);
+}
+
+function createVideoWindow(video: ImageElement, seek: number) {
+  if (winVideo) {
+    winVideo.webContents.send('load-video', video, globals, seek);
+    return;
+  }
+
+  const desktopSize = screen.getPrimaryDisplay().workAreaSize;
+
+  screenWidth = desktopSize.width;
+  screenHeight = desktopSize.height;
+
+  // Create the browser window.
+  winVideo = new BrowserWindow({
+    webPreferences: {
+      webSecurity: false  // allow files from hard disk to show up
+    },
+    minWidth: 420,
+    minHeight: 250,
+    icon: path.join(__dirname, 'src/assets/icons/png/64x64.png'),
+    frame: true  // removes the frame from the window completely
+  });
+
+  // Open the DevTools.
+  if (serve) {
+    require('electron-reload')(__dirname, {
+      electron: require(`${__dirname}/node_modules/electron`)
+    });
+    winVideo.loadURL('http://localhost:4200/#/video');
+    // winVideo.webContents.openDevTools();
+    winVideo.webContents.on('did-finish-load', () => {
+    winVideo.webContents.send('load-video', video, globals, seek);
+  });
+  } else {
+    winVideo.loadURL(url.format({
+      pathname: path.join(__dirname, 'dist/index.html'),
+      protocol: 'file:',
+      slashes: true
+    }));
+  }
+
+  // Emitted when the window is closed.
+  winVideo.on('closed', () => {
+    // Dereference the window object, usually you would store window
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    winVideo = null;
   });
 
   // Does not seem to be needed to remove all the Mac taskbar menu items

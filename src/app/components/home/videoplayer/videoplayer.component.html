@@ -1,0 +1,11 @@
+<div class="videoContainer">
+  <video
+    *ngIf="video"
+    [src]="'file://' + globals.selectedSourceFolder + '/' + video.partialPath + '/' + video.fileName"
+    class="videoPlayer"
+    (loadstart)="this.seekVideo()"
+    #videoplayer
+    controls
+    autoplay
+  ></video>
+</div>
