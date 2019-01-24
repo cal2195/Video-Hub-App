@@ -35,7 +35,7 @@ export class SheetComponent implements OnInit {
 
   @Output() editFinalArrayStars = new EventEmitter<StarEmission>();
   @Output() editFinalArrayTag = new EventEmitter<TagEmission>();
-  @Output() openFileRequest = new EventEmitter<number>();
+  @Output() openFileRequest = new EventEmitter<object>();
   @Output() filterTag = new EventEmitter<object>();
 
   @Input() video: ImageElement;
@@ -87,6 +87,10 @@ export class SheetComponent implements OnInit {
     if (this.thumbnailsToDisplay < 10) {
       this.thumbnailsToDisplay--;
     }
+  }
+
+  openVideo(index: number) {
+    this.openFileRequest.emit({index: this.video.index, seek: ((this.video.duration / (this.video.screens + 1)) * (index + 1))});
   }
 
   addThisTag(tag: string) {

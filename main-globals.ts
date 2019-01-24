@@ -13,7 +13,7 @@ export const globals: Globals = {
   winRef: null
 };
 
-interface Globals {
+export interface Globals {
   version: string;
   vhaFileVersion: number;
   angularApp: any;

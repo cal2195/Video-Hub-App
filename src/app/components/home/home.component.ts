@@ -673,11 +673,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
    * Open the video with user's default media player
    * @param index unique ID of the video
    */
-  public openVideo(index): void {
+  public openVideo(index, seek = 0): void {
     this.currentPlayingFolder = this.finalArray[index].partialPath;
     this.currentPlayingFile = this.finalArray[index].cleanName;
     const fullPath = this.appState.selectedSourceFolder + this.finalArray[index].partialPath + '/' + this.finalArray[index].fileName;
-    this.electronService.ipcRenderer.send('openThisFile', fullPath);
+    this.electronService.ipcRenderer.send('openThisFile', this.finalArray[index], seek);
     console.log(fullPath);
     this.fullPathToCurrentFile = fullPath;
   }

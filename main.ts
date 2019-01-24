@@ -403,8 +403,9 @@ ipc.on('just-started', function (event, someMessage) {
 /**
  * Open a particular video file clicked inside Angular
  */
-ipc.on('openThisFile', function (event, fullFilePath) {
-  shell.openItem(fullFilePath);
+ipc.on('openThisFile', function (event, video, seek) {
+  // shell.openItem(fullFilePath);
+  createVideoWindow(video, seek);
 });
 
 /**

@@ -125,7 +125,7 @@
   <!-- Thumbnail Sheet Display -->
   <app-thumbnail-sheet
     *ngIf="sheetDisplay"
-    (openFileRequest)="openVideo($event)"
+    (openFileRequest)="openVideo($event.index, $event.seek)"
     (editFinalArrayTag)="editFinalArrayTag($event)"
     (editFinalArrayStars)="editFinalArrayStars($event)"
     (filterTag)="handleFileWordClicked($event.tag.name, $event.event)"
