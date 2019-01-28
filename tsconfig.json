@@ -23,6 +23,7 @@
   ],
   "include": [
     "main.ts",
+    "transcode-server.ts",
     "src/**/*"
   ]
 }

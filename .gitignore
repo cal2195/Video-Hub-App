@@ -11,6 +11,7 @@ main-extract.js
 main-filenames.js
 main-globals.js
 main-support.js
+transcode-server.js
 src/**/*.js
 *.js.map
 
