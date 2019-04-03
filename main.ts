@@ -125,6 +125,7 @@ function createWindow() {
 function createVideoWindow(video: ImageElement, seek: number) {
   if (winVideo) {
     winVideo.webContents.send('load-video', video, globals, seek);
+    winVideo.focus();
     return;
   }
 
