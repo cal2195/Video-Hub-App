@@ -20,6 +20,7 @@ export class VideoPlayerComponent implements OnInit {
   video: ImageElement;
   globals: Globals;
   seek: number;
+  sheetDisplay = false;
 
   ngOnInit() {
     this.electronService.ipcRenderer.on('load-video', (event, video, globals, seek) => {
@@ -29,6 +30,12 @@ export class VideoPlayerComponent implements OnInit {
       this.seekVideo();
       console.log('video!' + video);
     });
+  }
+
+  openVideo(index, seek) {
+    this.seek = seek;
+    this.seekVideo();
+    this.sheetDisplay = false;
   }
 
   seekVideo() {

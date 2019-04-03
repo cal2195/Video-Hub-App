@@ -9,3 +9,36 @@
     autoplay
   ></video>
 </div>
+<div
+  (click)="this.sheetDisplay = true"
+  class="sheetButton"
+>sheet</div>
+<app-thumbnail-sheet
+    *ngIf="sheetDisplay"
+    (openFileRequest)="openVideo($event.index, $event.seek)"
+    (editFinalArrayTag)="editFinalArrayTag($event)"
+    (editFinalArrayStars)="editFinalArrayStars($event)"
+    (filterTag)="handleFileWordClicked($event.tag.name, $event.event)"
+
+
+    [elHeight]="150"
+    [elWidth]="150"
+    [folderPath]="globals.selectedOutputFolder"
+    [hubName]="globals.hubName"
+    [imgHeight]="150"
+
+    [video]="video"
+
+    [star]="video.stars"
+
+    [darkMode]="true"
+    [hoverScrub]="true"
+    [largerFont]="true"
+    [randomImage]="true"
+    [returnToFirstScreenshot]="true"
+    [showMeta]="true"
+    [showManualTags]="true"
+    [showAutoFileTags]="true"
+    [showAutoFolderTags]="true"
+  >
+  </app-thumbnail-sheet>
