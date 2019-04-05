@@ -31,11 +31,13 @@ export class VideoPlayerComponent implements OnInit {
 
   ngOnInit() {
     this.electronService.ipcRenderer.on('load-video', (event, video, globals, seek) => {
-      this.video = video;
-      this.globals = globals;
-      this.seek = seek;
-      this.seekVideo();
-      console.log('video!' + video);
+      if (video.fileName) {
+        this.video = video;
+        this.globals = globals;
+        this.seek = seek;
+        this.seekVideo();
+        console.log('video!' + video);
+      }
     });
   }
 
@@ -84,7 +86,7 @@ export class VideoPlayerComponent implements OnInit {
   seekVideo(play = false) {
     this.httpfile = 'http://localhost:3000/?file=' + this.globals.selectedSourceFolder + '/'
       + this.video.partialPath + '/' + this.video.fileName + '&seek=' + this.seek;
-    if (this.videoplayer.nativeElement) {
+    if (this.videoplayer) {
       this.videoplayer.nativeElement.autoplay = play;
     }
   }
