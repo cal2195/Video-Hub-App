@@ -8,9 +8,10 @@ const spawn = require('child_process').spawn;
 
 app.get('/', (req, res) => {
     const seekTime = req.query.seek || 0;
+    const file = req.query.file || '';
     const ffmpeg = spawn(ffmpegPath, [
       '-ss', seekTime,
-      '-i', '/Users/calmartin/Documents/SampleVideos/stream.wmv',
+      '-i', file,
       '-f', 'mp4',
       '-movflags', 'frag_keyframe+empty_moov+faststart',
       '-frag_duration', '3600',
