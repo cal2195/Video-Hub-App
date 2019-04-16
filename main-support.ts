@@ -1033,7 +1033,7 @@ export function importTagFiles(
       console.log('Checking for ' + tagFile);
       if (fs.existsSync(tagFile)) {
         console.log('Importing tags from ' + tagFile);
-        const tagString = fs.readFileSync(tagFile);
+        const tagString = fs.readFileSync(tagFile, 'utf8');
         const tags = tagString.split(',');
         element.tags = tags; // don't do this!
       }
