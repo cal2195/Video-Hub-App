@@ -1029,7 +1029,7 @@ export function importTagFiles(
   inputFolder: string
   ): void {
     finalArray.forEach(element => {
-      const tagFile = (path.join(inputFolder, element.partialPath, element.fileName + '.tag'));
+      const tagFile = (path.join(inputFolder, element.partialPath, element.fileName + '.tags'));
       if (fs.existsSync(tagFile)) {
         console.log('Importing tags from ' + tagFile);
         const tagString = fs.readFileSync(tagFile);
