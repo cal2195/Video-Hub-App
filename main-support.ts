@@ -1008,6 +1008,8 @@ export function updateFinalArrayWithHD(
     const metaRescanStartIndex = allDeletedRemoved.length;
     const finalArrayUpdated = allDeletedRemoved.concat(onlyNewElements);
 
+    importTagFiles(finalArrayUpdated, inputFolder);
+
     extractAllMetadata(
       finalArrayUpdated,
       inputFolder,
@@ -1020,6 +1022,21 @@ export function updateFinalArrayWithHD(
     sendCurrentProgress(1, 1, 0); // indicates 100%
   }
 
+}
+
+export function importTagFiles(
+  finalArray: ImageElement[],
+  inputFolder: string
+  ): void {
+    finalArray.forEach(element => {
+      const tagFile = (path.join(inputFolder, element.partialPath, element.fileName + '.tag'));
+      if (fs.existsSync(tagFile)) {
+        console.log('Importing tags from ' + tagFile);
+        const tagString = fs.readFileSync(tagFile);
+        const tags = tagString.split(',');
+        element.tags = tags; // don't do this!
+      }
+    });
 }
 
 
