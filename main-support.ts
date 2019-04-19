@@ -1029,13 +1029,15 @@ export function importTagFiles(
   inputFolder: string
   ): void {
     finalArray.forEach(element => {
-      const tagFile = (path.join(inputFolder, element.partialPath, element.fileName + '.tags'));
-      console.log('Checking for ' + tagFile);
-      if (fs.existsSync(tagFile)) {
-        console.log('Importing tags from ' + tagFile);
-        const tagString = fs.readFileSync(tagFile, 'utf8');
-        const tags = tagString.split(',');
-        element.tags = tags; // don't do this!
+      if (!element.tags) {
+        const tagFile = (path.join(inputFolder, element.partialPath, element.fileName + '.tags'));
+        console.log('Checking for ' + tagFile);
+        if (fs.existsSync(tagFile)) {
+          console.log('Importing tags from ' + tagFile);
+          const tagString = fs.readFileSync(tagFile, 'utf8');
+          const tags = tagString.split(',');
+          element.tags = tags; // don't do this!
+        }
       }
     });
 }
