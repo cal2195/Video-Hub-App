@@ -137,6 +137,7 @@ function createVideoWindow(video: ImageElement, seek: number) {
   // Create the browser window.
   winVideo = new BrowserWindow({
     webPreferences: {
+      nodeIntegration: true,
       webSecurity: false  // allow files from hard disk to show up
     },
     minWidth: 420,
