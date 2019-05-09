@@ -68,9 +68,7 @@ export class VideoPlayerComponent implements OnInit {
   }
 
   fullscreenVideo() {
-    if (this.videoplayer.nativeElement.webkitRequestFullscreen) {
-      this.videoplayer.nativeElement.webkitRequestFullscreen();
-    }
+    this.electronService.ipcRenderer.send("toggle-fullscreen");
   }
 
   seekBarChange() {

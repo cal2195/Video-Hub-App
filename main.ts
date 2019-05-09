@@ -124,7 +124,7 @@ function createWindow() {
 
 function createVideoWindow(video: ImageElement, seek: number) {
   if (winVideo) {
-    winVideo.webContents.send('load-video', video, globals, seek);
+    winVideo.webContents.send('load-video', winVideo, video, globals, seek);
     winVideo.focus();
     return;
   }
@@ -407,6 +407,10 @@ ipc.on('just-started', function (event, someMessage) {
       event.sender.send('settingsReturning', savedSettings, userWantedToOpen, locale);
     }
   });
+});
+
+ipc.on('toggle-fullscreen', () => {
+  winVideo.setFullScreen(!winVideo.isFullScreen());
 });
 
 /**
