@@ -9,10 +9,13 @@ const spawn = require('child_process').spawn;
 app.get('/', (req, res) => {
     const seekTime = req.query.seek || 0;
     const file = req.query.file || '';
+    // see https://trac.ffmpeg.org/wiki/Encode/H.264#a2.Chooseapreset for more options
     const ffmpeg = spawn(ffmpegPath, [
       '-ss', seekTime,
       '-i', file,
       '-f', 'mp4',
+      '-crf', '17',
+      '-preset', 'ultrafast',
       '-movflags', 'frag_keyframe+empty_moov+faststart',
       '-frag_duration', '3600',
       'pipe:1'
