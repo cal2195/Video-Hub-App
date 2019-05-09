@@ -41,11 +41,11 @@ install:
   - yarn
 
 script:
-  - echo "Unit Tests"
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then xvfb-run yarn test; else yarn test; fi
+  # - echo "Unit Tests"
+  # - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then xvfb-run yarn test; else yarn test; fi
 
-  - echo "E2E Tests"
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then xvfb-run yarn test:electron; else yarn test:electron; fi
+  # - echo "E2E Tests"
+  # - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then xvfb-run yarn test:electron; else yarn test:electron; fi
 
   - echo "Deploy linux version to GitHub"
   - if [[ "$TRAVIS_BRANCH" == "master" ]] && [[ "$TRAVIS_OS_NAME" == "linux" ]]; then yarn release:linux; fi
