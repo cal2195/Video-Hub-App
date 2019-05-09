@@ -1,57 +1,45 @@
-osx_image: xcode8.4 # define OS X image which will be mounted
-
-dist: trusty # use Ubuntu Trusty for Linux operation system
-
-# Note: if you switch to sudo: false, you'll need to launch chrome with --no-sandbox.
-# See https://github.com/travis-ci/travis-ci/issues/8836
+osx_image: xcode8.4
+dist: trusty
 sudo: required
-
-# Define Node.js as the programming language as we have a web application
 language: node_js
 node_js: '12'
-
 addons:
-  chrome: stable # Install chrome stable on operating systems
-
-# A list of operating systems which are used for tests
+  chrome: stable
 os:
-  - linux
-  - osx
-
+- linux
+- osx
 env:
   global:
-    - ELECTRON_CACHE=$HOME/.cache/electron
-    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-
+  - ELECTRON_CACHE=$HOME/.cache/electron
+  - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 cache:
   yarn: true
   directories:
-    - $HOME/.cache/electron
-    - $HOME/.cache/electron-builder
-    - $HOME/.npm/_prebuilds
-
+  - "$HOME/.cache/electron"
+  - "$HOME/.cache/electron-builder"
+  - "$HOME/.npm/_prebuilds"
 before_cache:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then rm -rf $HOME/.cache/electron-builder/wine; fi
-
-# These commands are executed before the scripts are executed
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then rm -rf $HOME/.cache/electron-builder/wine;
+  fi
 install:
-  # On OS X we first need to install Yarn via Homebrew
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install yarn; fi
-  # Install all dependencies listed in your package.json file
-  - yarn
-
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install yarn; fi
+- yarn
 script:
-  # - echo "Unit Tests"
-  # - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then xvfb-run yarn test; else yarn test; fi
-
-  # - echo "E2E Tests"
-  # - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then xvfb-run yarn test:electron; else yarn test:electron; fi
-
-  - echo "Deploy linux version to GitHub"
-  - if [[ "$TRAVIS_BRANCH" == "travis-tests" ]] && [[ "$TRAVIS_OS_NAME" == "linux" ]]; then yarn electron:linux; fi
-
-  - echo "Deploy windows version to GitHub"
-  - if [[ "$TRAVIS_BRANCH" == "travis-tests" ]] && [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn electron:win; fi
-
-  - echo "Deploy mac version to GitHub"
-  - if [[ "$TRAVIS_BRANCH" == "travis-tests" ]] && [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn electron:mac; fi
+- echo "Deploy linux version to GitHub"
+- if [[ "$TRAVIS_BRANCH" == "travis-tests" ]] && [[ "$TRAVIS_OS_NAME" == "linux" ]];
+  then yarn electron:linux; fi
+- echo "Deploy windows version to GitHub"
+- if [[ "$TRAVIS_BRANCH" == "travis-tests" ]] && [[ "$TRAVIS_OS_NAME" == "osx" ]];
+  then yarn electron:win; fi
+- echo "Deploy mac version to GitHub"
+- if [[ "$TRAVIS_BRANCH" == "travis-tests" ]] && [[ "$TRAVIS_OS_NAME" == "osx" ]];
+  then yarn electron:mac; fi
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: TwTBt+w1AIlf+KGK1QtRJrdhwE7S7r7B4exekjbrBm1ql8fptN7joarpVhlZ1m6B5WwIOdGKfH6PSMnKnaqhalF2tuTvpIk48n3UfaJ5PkKkWvb6qJdg0FFyEVbaDtHRkIsBgQ/fnQ1phOT8B556KzzBfQfTGv8OfvfS5HJeG9nhcq/w8dqX7Xm8Hla/GQ+uaIYECIYnZwP5X5P8BWAbSY9n+q0j7WKU55/bmh9tXB3RfWRJ2EOKu45n9VOWy8t1KHzsuwRa2G/Ec+3ElxuZv9lZxK/EVb6uxBGKXXmZN0YnSQymt9mjh+ZHNWY9Pch3c8IIrojdk+0Tb/CSG57XMXt5/jvKIJSxEug8Tkuy+DRlRUDKIRPViEK2CPpOMwYFfsBtpyxo1D6vua44Yv4nRkz4VzbiCPMRb6C5b2Bqdh1gPqLZGH/K0DZ4WIpfff76385r74CI4+yg1jJ0C3ddu704AT3jUpHvaTetbv+F1OzXD686W4DEi2nbsPOuhGgw5TeT70TV7wnkQptKX6mCkhierDksDgUFsIqf0/BufFUyZjF4ffXfDZV52oQAUB9p7e5Y7MgWItuVKAo0npwtjOYdcnX3k1tw5ugc6+SGU7SE5dBn/GyjxguceV1CaWFkVw/vi4RcGQKMMwAigH2xTTFkQ+5VJSwih3rgoFnjqgo=
+  file_glob: true
+  file:
+    - release/Video\ Hub\ App*.exe
+    - release/Video\ Hub\ App*.dmg
