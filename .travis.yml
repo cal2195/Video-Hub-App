@@ -30,7 +30,7 @@ script:
   then yarn electron:linux; fi
 - echo "Deploy windows version to GitHub"
 - if [[ "$TRAVIS_BRANCH" == "travis-tests" ]] && [[ "$TRAVIS_OS_NAME" == "osx" ]];
-  then yarn electron:win; fi
+  then yarn electron:windows; fi
 - echo "Deploy mac version to GitHub"
 - if [[ "$TRAVIS_BRANCH" == "travis-tests" ]] && [[ "$TRAVIS_OS_NAME" == "osx" ]];
   then yarn electron:mac; fi
