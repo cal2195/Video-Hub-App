@@ -1072,6 +1072,7 @@
 <div
   *ngIf="settingsButtons['showRelatedVideosTray'].toggled"
   class="bottom-tray most-similar-tray"
+  #mostSimilarTray
   @modalAnimation
 >
 
@@ -1081,13 +1082,13 @@
     @similarResultsText
   >
     {{ 'TAGS.showingMostSimilar' | translate }}
-    <span class="most-siilar-filename">
+    <span class="most-similar-filename">
       {{ currentPlayingFile }}
     </span>
   </div>
 
   <app-gallery-item
-    *ngFor="let item of finalArray | similarityPipe: true : currentPlayingFile | slice:0:7 "
+    *ngFor="let item of finalArray | similarityPipe: true : currentPlayingFile"
 
     (click)="handleClick($event, item)"
     (contextmenu)="rightMouseClicked($event, item)"

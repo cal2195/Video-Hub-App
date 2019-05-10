@@ -1133,6 +1133,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
    */
   public computePreviewWidth(): void {
     this.galleryWidth = document.getElementById('scrollDiv').getBoundingClientRect().width - 20;
+    const trayWidth = document.body.getBoundingClientRect().width;
 
     if (   this.appState.currentView === 'showClips'
         || this.appState.currentView === 'showThumbnails'
@@ -1150,8 +1151,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     // compute preview dimensions for thumbs in the most similar tab:
     if (this.settingsButtons['showRelatedVideosTray'].toggled) {
-      this.previewWidthRelated = Math.min((this.galleryWidth / 5) - 40, 176);
-      this.previewHeightRelated = Math.min(this.previewWidthRelated * (9 / 16), 144);
+      this.previewWidthRelated = (trayWidth / 7);
+      this.previewHeightRelated = this.previewWidthRelated * (9 / 16);
     }
   }
 
