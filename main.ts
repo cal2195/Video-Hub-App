@@ -103,11 +103,8 @@ function createWindow() {
     win.loadURL('http://localhost:4200');
     win.webContents.openDevTools();
   } else {
-    win.loadURL(url.format({
-      pathname: path.join(__dirname, 'dist/index.html'),
-      protocol: 'file:',
-      slashes: true
-    }));
+    const indexUrl = new URL(path.join(__dirname, 'dist/index.html'), 'file:');
+    win.loadURL(url.format(indexUrl));
   }
 
   // Emitted when the window is closed.
@@ -124,7 +121,7 @@ function createWindow() {
 
 function createVideoWindow(video: ImageElement, seek: number) {
   if (winVideo) {
-    winVideo.webContents.send('load-video', winVideo, video, globals, seek);
+    winVideo.webContents.send('load-video', video, globals, seek);
     winVideo.focus();
     return;
   }
@@ -152,17 +149,14 @@ function createVideoWindow(video: ImageElement, seek: number) {
       electron: require(`${__dirname}/node_modules/electron`)
     });
     winVideo.loadURL('http://localhost:4200/#/video');
-    // winVideo.webContents.openDevTools();
-    winVideo.webContents.on('did-finish-load', () => {
+  } else {
+    const videoUrl = new URL(path.join(__dirname, 'dist/index.html#/video'), 'file:');
+    winVideo.loadURL(url.format(videoUrl));
+  }
+
+  winVideo.webContents.on('did-finish-load', () => {
     winVideo.webContents.send('load-video', video, globals, seek);
   });
-  } else {
-    winVideo.loadURL(url.format({
-      pathname: path.join(__dirname, 'dist/index.html'),
-      protocol: 'file:',
-      slashes: true
-    }));
-  }
 
   // Emitted when the window is closed.
   winVideo.on('closed', () => {
