@@ -70,7 +70,7 @@ export class SheetComponent implements OnInit {
 
   percentOffset: number = 0;
   fullFilePath = '';
-  thumbnailsToDisplay = 4;
+  thumbnailsToDisplay = 5;
   starRatingHack: StarRating;
 
   constructor(
