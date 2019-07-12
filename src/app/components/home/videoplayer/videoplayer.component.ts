@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ImageElement } from '../../common/final-object.interface';
 import { ElectronService } from '../../../providers/electron.service';
 import { Globals } from '../../../../../main-globals';
-import { PlayState } from '@angular/core/src/render3/interfaces/player';
 
 @Component({
   selector: 'app-videoplayer-component',
@@ -11,11 +10,11 @@ import { PlayState } from '@angular/core/src/render3/interfaces/player';
   styleUrls: ['./videoplayer.component.scss']
 })
 export class VideoPlayerComponent implements OnInit {
-  @ViewChild('videoplayer') videoplayer: any;
-  @ViewChild('playButton') playButton: any;
-  @ViewChild('muteButton') muteButton: any;
-  @ViewChild('seekBar') seekBar: any;
-  @ViewChild('volumeBar') volumeBar: any;
+  @ViewChild('videoplayer', { static: false }) videoplayer: any;
+  @ViewChild('playButton', { static: false }) playButton: any;
+  @ViewChild('muteButton', { static: false }) muteButton: any;
+  @ViewChild('seekBar', { static: false }) seekBar: any;
+  @ViewChild('volumeBar', { static: false }) volumeBar: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,6 +24,7 @@ export class VideoPlayerComponent implements OnInit {
   video: ImageElement;
   globals: Globals;
   seek: number;
+  duration = 1;
   currentTime: number = 0;
   sheetDisplay = false;
   httpfile: string;
@@ -35,7 +35,8 @@ export class VideoPlayerComponent implements OnInit {
         this.video = video;
         this.globals = globals;
         this.seek = seek;
-        this.seekVideo();
+        this.duration = video.duration;
+        this.seekVideo(true);
         console.log('video!' + video);
       }
     });

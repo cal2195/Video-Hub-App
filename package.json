@@ -42,7 +42,7 @@
     "@ffmpeg-installer/ffmpeg": "1.0.18",
     "@ffprobe-installer/ffprobe": "1.0.12",
     "@ngx-translate/core": "11.0.1",
-    "ngx-virtual-scroller": "3.0.2"
+    "ngx-virtual-scroller": "3.0.2",
     "express": "4.16.4"
   },
   "devDependencies": {

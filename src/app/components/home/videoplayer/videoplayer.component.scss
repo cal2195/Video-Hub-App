@@ -38,19 +38,6 @@
 	-o-transition: opacity .3s;
 	-ms-transition: opacity .3s;
 	transition: opacity .3s;
-	background-image: linear-gradient(bottom, rgb(3,113,168) 13%, rgb(0,136,204) 100%);
-	background-image: -o-linear-gradient(bottom, rgb(3,113,168) 13%, rgb(0,136,204) 100%);
-	background-image: -moz-linear-gradient(bottom, rgb(3,113,168) 13%, rgb(0,136,204) 100%);
-	background-image: -webkit-linear-gradient(bottom, rgb(3,113,168) 13%, rgb(0,136,204) 100%);
-	background-image: -ms-linear-gradient(bottom, rgb(3,113,168) 13%, rgb(0,136,204) 100%);
-
-	background-image: -webkit-gradient(
-		linear,
-		left bottom,
-		left top,
-		color-stop(0.13, rgb(3,113,168)),
-		color-stop(1, rgb(0,136,204))
-	);
 }
 
 .videoContainer:hover #video-controls {

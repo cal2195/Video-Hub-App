@@ -1,6 +1,5 @@
 <div class="videoContainer">
   <video
-    *ngIf="video"
     [src]="this.httpfile"
     class="videoPlayer"
     #videoplayer
@@ -10,8 +9,8 @@
   <!-- Video Controls -->
   <div id="video-controls">
     <button #playButton type="button" id="play-pause" (click)="this.playPauseVideo()">Play</button>
-    <input #seekBar type="range" id="seek-bar" value="0" max="{{this.video.duration}}" step="1" (change)="this.seekBarChange()">
-    {{this.currentTime | lengthPipe}}/{{this.video.duration | lengthPipe}}
+    <input #seekBar type="range" id="seek-bar" value="0" max="this.duration" step="1" (change)="this.seekBarChange()">
+    {{this.currentTime | lengthPipe}}/{{this.duration | lengthPipe}}
     <button #muteButton type="button" id="mute" (click)="this.muteUnmuteVideo()">Mute</button>
     <input #volumeBar type="range" id="volume-bar" min="0" max="1" step="0.1" value="1" (change)="this.volumeChange()">
     <button type="button" id="full-screen" (click)="this.fullscreenVideo()">Full-Screen</button>
