@@ -282,8 +282,6 @@ function openThisDamnFile(pathToVhaFile: string) {
         lastSavedFinalObject.inputDir = globals.selectedOutputFolder;
       }
 
-      fs.watch(lastSavedFinalObject.inputDir, (event, file) => { console.log(event + ': ' + file); });
-
       let changedRootFolder = false;
       let rootFolderLive = true;
 
@@ -345,6 +343,8 @@ function openThisDamnFile(pathToVhaFile: string) {
 
       console.log(globals.selectedSourceFolder + ' - videos location');
       console.log(globals.selectedOutputFolder + ' - output location');
+
+      watchInputFolder(lastSavedFinalObject.images, lastSavedFinalObject.inputDir);
 
       globals.angularApp.sender.send(
         'finalObjectReturning',
@@ -960,6 +960,7 @@ import {
   findAndImportNewFiles,
   regenerateLibrary,
   rescanAddAndDelete,
+  watchInputFolder
 } from './main-rescan';
 
 /**

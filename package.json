@@ -46,6 +46,9 @@
     "ngx-virtual-scroller": "3.0.2",
     "trash": "6.1.1"
   },
+  "optionalDependencies": {
+    "inotify": "1.4.6"
+  },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.900.2",
     "@angular/animations": "9.0.1",
