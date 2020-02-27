@@ -20,6 +20,7 @@ export function watchInputFolder(
   try {
     Inotify = require('inotify').Inotify;
   } catch (er) {
+    console.log('error with inotify');
     return;
   }
 
@@ -42,7 +43,9 @@ export function watchInputFolder(
       path:      videoFolderPath + dir,
       watch_for: Inotify.IN_CLOSE_WRITE,
       callback:  watchCallback
-  };
+    };
+    inotify.addWatch(watch);
+    console.log('watching ' + watch.path);
   });
 }
 
